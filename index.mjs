@@ -25,6 +25,7 @@ const app = express();
 
 app.use(cookieParser()); // Tambahkan ini untuk mengurai cookies
 app.use(cors({origin:allowedOrigins,credentials:true}));
+// app.use(cors({origin:allowedOrigins,credentials:true}));
 app.use(express.json());
 
 app.use((err, _req, res, next) => {
@@ -43,6 +44,9 @@ app.use("/progress", authenticateJWT, routeProgress);
 app.use("/status", authenticateJWT, routeStatus);
 app.use("/tchat", authenticateJWT, routeTChat);
 app.use("/tservis", authenticateJWT, routeTServis);
+app.get("/", (_req, res) => {
+  res.send("API is running...");
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
